@@ -24,13 +24,19 @@
             box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
             transform: scale(1.02);
         }
+        .sidebar-active-concept {
+            background-color: #0f172a;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.3);
+            transform: scale(1.02);
+        }
         .transition-all { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-slide { animation: slideDown 0.4s ease-out forwards; }
+        .animate-fade { animation: fadeIn 0.5s ease-out forwards; }
         
         .card-expanded {
             background-color: white;
@@ -38,20 +44,25 @@
             border-color: #bfdbfe;
             transform: scale(1.02);
         }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #eff6ff, transparent),
+                        radial-gradient(circle at bottom left, #f8fafc, transparent);
+        }
     </style>
 </head>
-<body class="text-slate-900 selection:bg-blue-100">
+<body class="text-slate-900 selection:bg-blue-100 overflow-x-hidden">
 
-    <div class="min-h-screen p-4 md:p-10">
+    <div class="min-h-screen p-4 md:p-10 hero-gradient">
         <!-- Header -->
         <header class="max-w-7xl mx-auto text-center mb-10">
             <div class="flex flex-col items-center mb-6">
-                <div class="bg-slate-900 px-10 py-8 rounded-[3rem] mb-8 shadow-2xl border border-slate-800">
+                <div class="bg-slate-900 px-10 py-8 rounded-[3rem] mb-8 shadow-2xl border border-slate-800 transition-transform hover:scale-105 duration-700">
                     <img src="https://i.imgur.com/yyI6FWO.png" alt="Logo Comfamiliar" class="h-16 md:h-20 w-auto object-contain brightness-110">
                 </div>
                 <div class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border border-blue-100">
                     <i data-lucide="sparkles" class="w-4 h-4 animate-pulse"></i>
-                    <span>Gestión Humana - Vector Organización y Cutura (TED) - Comfamiliar Risaralda</span>
+                    <span>Gestión Humana - Vector Organización y Cultura (TED) - Comfamiliar Risaralda</span>
                 </div>
             </div>
             <h1 class="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tight">
@@ -59,40 +70,34 @@
             </h1>
         </header>
 
-        <!-- Métricas Horizontales -->
-        <section class="max-w-7xl mx-auto mb-10">
+        <!-- Métricas Horizontales (Ocultas en Inicio, visibles al "entrar en materia") -->
+        <section id="metrics-bar" class="max-w-7xl mx-auto mb-10 hidden animate-fade">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-xl hover:-translate-y-1 transition-all">
-                    <div class="flex items-center space-x-5">
-                        <div class="p-4 bg-blue-50 rounded-2xl text-blue-500 group-hover:scale-110 transition-transform">
-                            <i data-lucide="users" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-black text-slate-800 leading-none">2.300+</div>
-                            <div class="text-xs text-slate-400 uppercase font-black tracking-widest mt-1">Colaboradores</div>
-                        </div>
+                <div class="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm flex items-center space-x-5 group hover:shadow-xl transition-all">
+                    <div class="p-4 bg-blue-50 rounded-2xl text-blue-500 group-hover:scale-110 transition-transform">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-slate-800 leading-none">2.300+</div>
+                        <div class="text-xs text-slate-400 uppercase font-black tracking-widest mt-1">Colaboradores</div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-xl hover:-translate-y-1 transition-all">
-                    <div class="flex items-center space-x-5">
-                        <div class="p-4 bg-teal-50 rounded-2xl text-teal-500 group-hover:scale-110 transition-transform">
-                            <i data-lucide="shield-check" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-black text-slate-800 leading-none">34</div>
-                            <div class="text-xs text-slate-400 uppercase font-black tracking-widest mt-1">Cargos Críticos</div>
-                        </div>
+                <div class="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm flex items-center space-x-5 group hover:shadow-xl transition-all">
+                    <div class="p-4 bg-teal-50 rounded-2xl text-teal-500 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-slate-800 leading-none">34</div>
+                        <div class="text-xs text-slate-400 uppercase font-black tracking-widest mt-1">Cargos Críticos</div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-xl hover:-translate-y-1 transition-all">
-                    <div class="flex items-center space-x-5">
-                        <div class="p-4 bg-indigo-50 rounded-2xl text-indigo-500 group-hover:scale-110 transition-transform">
-                            <i data-lucide="rocket" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-black text-slate-800 leading-none">10 Piloto</div>
-                            <div class="text-xs text-slate-400 uppercase font-black tracking-widest mt-1">Duplas Mentoring</div>
-                        </div>
+                <div class="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm flex items-center space-x-5 group hover:shadow-xl transition-all">
+                    <div class="p-4 bg-indigo-50 rounded-2xl text-indigo-500 group-hover:scale-110 transition-transform">
+                        <i data-lucide="rocket" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-slate-800 leading-none">10 Piloto</div>
+                        <div class="text-xs text-slate-400 uppercase font-black tracking-widest mt-1">Duplas Mentoring</div>
                     </div>
                 </div>
             </div>
@@ -105,7 +110,12 @@
                 <div class="sticky top-8 space-y-6">
                     <nav class="bg-slate-200/50 p-2 rounded-[2.5rem] shadow-inner border border-slate-200/30">
                         <div class="flex flex-col gap-1">
-                            <button onclick="switchTab('diagnostico')" class="nav-btn flex items-center space-x-4 px-6 py-5 rounded-[2rem] font-black text-sm transition-all sidebar-active" data-id="diagnostico">
+                            <button onclick="switchTab('concepto')" class="nav-btn flex items-center space-x-4 px-6 py-5 rounded-[2rem] font-black text-sm transition-all sidebar-active-concept" data-id="concepto">
+                                <i data-lucide="book-open" class="w-5 h-5"></i>
+                                <span>Inicio / Fundamentación</span>
+                            </button>
+                            <div class="h-px bg-slate-300/30 my-2 mx-6"></div>
+                            <button onclick="switchTab('diagnostico')" class="nav-btn flex items-center space-x-4 px-6 py-5 rounded-[2rem] font-black text-sm transition-all text-slate-500 hover:bg-white/50" data-id="diagnostico">
                                 <i data-lucide="file-search" class="w-5 h-5"></i>
                                 <span>Fases Diagnósticas</span>
                             </button>
@@ -131,11 +141,45 @@
 
             <!-- Área de Contenido -->
             <main class="flex-1 min-w-0">
+                
+                <!-- SECCIÓN INDEPENDIENTE: Concepto y Fundamentación -->
+                <div id="section-concepto" class="tab-content animate-fade">
+                    <div class="bg-white p-12 rounded-[3.5rem] shadow-2xl border border-slate-100 relative overflow-hidden mb-10">
+                        <div class="absolute top-0 right-0 p-10 opacity-5">
+                            <i data-lucide="lightbulb" class="w-32 h-32 text-blue-600"></i>
+                        </div>
+                        <div class="relative z-10 max-w-3xl">
+                            <h2 class="text-4xl font-black text-slate-900 mb-6 leading-tight">¿Qué es la Gestión del Conocimiento (GC)?</h2>
+                            <p class="text-xl text-slate-600 leading-relaxed font-medium mb-8">
+                                La gestión del conocimiento es un proceso integral que abarca la <span class="text-blue-600 font-black">creación, captura, administración, transferencia y aplicación</span> del saber dentro de Comfamiliar Risaralda.
+                            </p>
+                            <div class="bg-slate-50 p-6 rounded-3xl border-l-8 border-indigo-500 mb-8">
+                                <p class="text-lg text-slate-700 italic font-medium">
+                                    "No se trata solo de preservar lo conocido, sino de fomentar nuevo conocimiento y acelerar el aprendizaje para mejorar la toma de decisiones."
+                                </p>
+                            </div>
+                            <button onclick="switchTab('diagnostico')" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black hover:bg-blue-700 transition-all shadow-xl flex items-center gap-3 group">
+                                Entrar en materia <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-black text-slate-800 mb-8 flex items-center gap-4">
+                            <span class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center"><i data-lucide="layers" class="w-6 h-6"></i></span>
+                            Las 7 Etapas del Ciclo de Gestión
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="stages-grid">
+                            <!-- Generado por JS -->
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Sección Diagnóstico -->
-                <div id="section-diagnostico" class="tab-content animate-fade">
+                <div id="section-diagnostico" class="tab-content hidden animate-fade">
                     <div class="mb-8">
                         <h2 class="text-3xl font-black text-slate-900 tracking-tight">Fases Diagnósticas</h2>
-                        <p class="text-slate-500 font-medium mt-1">Haz clic en cada fase para ver la reseña detallada.</p>
+                        <p class="text-slate-500 font-medium mt-1">Metodología para la identificación del conocimiento táctico.</p>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="phases-grid">
                         <!-- Generado por JS -->
@@ -146,7 +190,7 @@
                 <div id="section-estrategias" class="tab-content hidden animate-fade">
                     <div class="mb-8">
                         <h2 class="text-3xl font-black text-slate-900 tracking-tight">Estrategias de Desarrollo</h2>
-                        <p class="text-slate-500 font-medium mt-1">Modelos integrados para el crecimiento del talento.</p>
+                        <p class="text-slate-500 font-medium mt-1">Motores del Plan Carrera para el crecimiento institucional.</p>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="strategies-grid">
                         <!-- Generado por JS -->
@@ -164,8 +208,8 @@
 
                     <div class="bg-slate-900 text-white p-12 rounded-[3.5rem] shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-10 relative overflow-hidden">
                         <div class="relative z-10">
-                            <h3 class="text-3xl font-black mb-3 text-blue-400">¿Listo para conectar?</h3>
-                            <p class="text-slate-400 text-sm max-w-md">Accede al aplicativo oficial para gestionar tus duplas, sesiones y seguimiento de objetivos.</p>
+                            <h3 class="text-3xl font-black mb-3 text-blue-400 tracking-tight">¿Listo para conectar?</h3>
+                            <p class="text-slate-400 text-sm max-w-md">Accede al aplicativo oficial para gestionar tus duplas, sesiones y objetivos de aprendizaje.</p>
                         </div>
                         <a href="https://talentohumanoccf.github.io/app-mentoring/" target="_blank" class="bg-white text-slate-900 px-10 py-5 rounded-[2rem] font-black hover:bg-blue-600 hover:text-white transition-all shadow-xl flex items-center gap-4 group relative z-10">
                             Ir al Aplicativo <i data-lucide="rocket" class="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
@@ -176,7 +220,7 @@
         </div>
 
         <footer class="max-w-7xl mx-auto mt-20 pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-slate-400 text-xs gap-6 pb-16">
-            <p class="font-bold font-black">© 2026 Vector Organización y Cultura TED - Comfamiliar Risaralda</p>
+            <p class="font-bold font-black uppercase tracking-widest">© 2026 Vector Organización y Cultura TED - Comfamiliar Risaralda</p>
             <div class="flex items-center space-x-8 font-black text-slate-500 uppercase tracking-[0.2em]">
                 <span>Incondicionales</span><span class="text-slate-200">•</span><span>Sostenibles</span>
             </div>
@@ -185,24 +229,34 @@
 
     <script>
         const phases = [
-            { id: 1, title: 'Benchmarking Nacional', short: 'Comparativa de mejores prácticas.', long: 'Ejercicio comparativo con instituciones del país para identificar tendencias en sucesión organizacional, bancos de conocimiento y modelos de mentoring estructurado para Cajas de Compensación.' },
-            { id: 2, title: 'Plataforma Institucional', short: 'Repositorio digital y suite AppSheet.', long: 'Creación de una suite digital en Google Workspace y proyección de una App en AppSheet para el registro automático de procesos, seguimiento de sesiones de mentoría y gestión documental simplificada.' },
-            { id: 3, title: 'Análisis de Base de Datos', short: 'Filtrado de variables críticas.', long: 'Evaluación exhaustiva de variables como antigüedad, años faltantes para pensión, nivel jerárquico y responsabilidad operativa para pre-identificar riesgos inminentes de pérdida de conocimiento.' },
-            { id: 4, title: 'Matriz de Cuantificación', short: 'Ponderación técnica de criticidad.', long: 'Aplicación de una matriz técnica que evalúa si el cargo es único en la organización, el tiempo en el rol del experto, la cercanía a su jubilación y la dependencia operativa que el proceso tiene de esa persona.' },
-            { id: 5, title: 'Validación con Líderes', short: 'Confirmación de cargos en riesgo.', long: 'Entrevistas estructuradas con responsables de proceso para confirmar hallazgos del sistema, identificar nuevos cargos críticos y priorizar procesos que requieren documentación inmediata.' },
-            { id: 6, title: 'Estrategia de Documentación', short: 'Formatos de captura de saber.', long: 'Definición de medios efectivos como manuales interactivos, cartillas de proceso, videos tutoriales y la creación de comunidades de práctica para los 34 cargos críticos priorizados.' },
-            { id: 7, title: 'Contacto con Expertos', short: 'Acompañamiento individual.', long: 'Sesiones personalizadas con los colaboradores expertos para definir exactamente qué conocimiento táctico (el "saber cómo") debe transferirse y documentarse en el repositorio.' },
-            { id: 8, title: 'Carga en la Nube', short: 'Consolidación del saber institucional.', long: 'Proceso guiado para subir todo el conocimiento documentado al repositorio digital institucional (Nube), asegurando que el conocimiento sea un activo de la empresa y no de la persona.' },
-            { id: 9, title: 'Seguimiento Institucional', short: 'Monitoreo del indicador.', long: 'Evaluación periódica entre el experto, el líder de proceso y Vector Organización y Cultura TED para garantizar que la transferencia sea efectiva y que el conocimiento crítico esté protegido al 100%.' }
+            { id: 1, title: 'Benchmarking Nacional', short: 'Mejores prácticas nacionales.', long: 'Ejercicio comparativo con instituciones del país para identificar tendencias en sucesión organizacional, bancos de conocimiento y modelos de mentoring estructurado.' },
+            { id: 2, title: 'Plataforma Institucional', short: 'Suite digital y AppSheet.', long: 'Creación de una suite digital en Google y proyección de una App en AppSheet para el registro de procesos, seguimiento de sesiones y gestión documental.' },
+            { id: 3, title: 'Análisis de Base de Datos', short: 'Filtrado de variables críticas.', long: 'Evaluación de antigüedad, años faltantes para pensión y nivel jerárquico para pre-identificar riesgos de pérdida de conocimiento.' },
+            { id: 4, title: 'Matriz de Cuantificación', short: 'Criterios ponderados de criticidad.', long: 'Aplicación de una matriz técnica que evalúa si el cargo es único, tiempo en el rol y la dependencia operativa institucional.' },
+            { id: 5, title: 'Validación con Líderes', short: 'Confirmación de cargos en riesgo.', long: 'Entrevistas con responsables de proceso para confirmar hallazgos del sistema e identificar nuevos cargos críticos.' },
+            { id: 6, title: 'Estrategia de Documentación', short: 'Métodos de captura de saber.', long: 'Definición de medios como manuales, cartillas, videos tutoriales y comunidades de práctica para los cargos priorizados.' },
+            { id: 7, title: 'Contacto con Expertos', short: 'Acompañamiento individual.', long: 'Sesiones personalizadas con los colaboradores expertos para definir exactamente qué conocimiento táctico debe transferirse.' },
+            { id: 8, title: 'Carga en la Nube', short: 'Consolidación del saber.', long: 'Proceso guiado para subir el conocimiento documentado al repositorio digital institucional, asegurando su disponibilidad permanente.' },
+            { id: 9, title: 'Seguimiento Institucional', short: 'Monitoreo del indicador.', long: 'Evaluación periódica entre el experto, el líder y Vector TED para garantizar que la transferencia sea efectiva y el conocimiento esté protegido.' }
         ];
 
         const strategies = [
-            { icon: 'users', title: 'Mentoring Estratégico', short: 'Duplas de aprendizaje experiencial.', long: 'Línea de desarrollo fuerte que utiliza a los expertos actuales para preparar a las segundas líneas mediante coaching y proyectos estratégicos de alto impacto.' },
-            { icon: 'target', title: 'Modelo 9 Cajas (Talento)', short: 'Mapeo institucional de potencial.', long: 'Categorización del talento para definir rutas de fidelización para "High Potentials", planes de sucesión para cargos directivos y retiro asistido para colaboradores senior.' },
-            { icon: 'trending-up', title: 'Rutas Duales y Movilidad', short: 'Crecimiento lateral y vertical.', long: 'Permite el enriquecimiento del puesto y rotaciones internas. Los colaboradores pueden elegir entre una ruta técnica (especialista) o una ruta de liderazgo (gerencial).' },
-            { icon: 'award', title: 'Certificación por Niveles', short: 'Escuelas internas de formación.', long: 'Los procesos documentados se convierten en currículos educativos. Los colaboradores avanzan desde nivel básico hasta experto, recibiendo certificaciones institucionales.' },
-            { icon: 'trending-up', title: 'Progresión Salarial', short: 'Reconocimiento por desempeño.', long: 'Vinculación de la escala salarial con los niveles de certificación técnica y el cumplimiento de metas superiores al 90% en la evaluación de desempeño anual.' },
-            { icon: 'git-merge', title: 'Rutas de Sucesión', short: 'Continuidad operativa asegurada.', long: 'Identificación y desarrollo proactivo de sucesores para cargos estratégicos y críticos, minimizando el impacto operativo ante retiros o ausencias.' }
+            { icon: 'users', title: 'Mentoring Estratégico', short: 'Duplas de aprendizaje experiencial.', long: 'Usa expertos actuales para preparar a las segundas líneas mediante coaching y proyectos estratégicos de alto impacto.' },
+            { icon: 'target', title: 'Modelo 9 Cajas (Talento)', short: 'Mapeo institucional de potencial.', long: 'Categorización del talento para definir rutas de fidelización para los "High Potentials" y planes de retiro asistido.' },
+            { icon: 'trending-up', title: 'Rutas Duales y Movilidad', short: 'Crecimiento lateral y vertical.', long: 'Permite el enriquecimiento del puesto y rotaciones. Define rutas técnicas (especialista) o de liderazgo (gerencial).' },
+            { icon: 'award', title: 'Certificación por Niveles', short: 'Escuelas internas de formación.', long: 'Los procesos documentados se convierten en currículos educativos. Los colaboradores avanzan desde nivel básico hasta experto.' },
+            { icon: 'trending-up', title: 'Progresión Salarial', short: 'Reconocimiento por desempeño.', long: 'Vinculación de la escala salarial con los niveles de certificación técnica y el cumplimiento de metas superiores al 90%.' },
+            { icon: 'git-merge', title: 'Rutas de Sucesión', short: 'Continuidad operativa asegurada.', long: 'Identificación y desarrollo de sucesores para cargos estratégicos, minimizando el impacto operativo ante retiros o ausencias.' }
+        ];
+
+        const gcStages = [
+            { id: 1, icon: 'search', title: 'Identificar', desc: 'Reconocer el conocimiento valioso en personas, procesos y fuentes externas.' },
+            { id: 2, icon: 'file-down', title: 'Capturar', desc: 'Recopilar y documentar el saber para que esté disponible y comprensible para todos.' },
+            { id: 3, icon: 'database', title: 'Almacenar', desc: 'Organizar sistemáticamente en bases de datos o sistemas de gestión documental.' },
+            { id: 4, icon: 'share-2', title: 'Compartir', desc: 'Distribuir efectivamente, promoviendo una cultura de aprendizaje continuo.' },
+            { id: 5, icon: 'play-circle', title: 'Aplicar', desc: 'Utilizar el saber en la práctica diaria y toma de decisiones para mejorar resultados.' },
+            { id: 6, icon: 'bar-chart-3', title: 'Evaluar', desc: 'Medir el impacto de las iniciativas para identificar áreas de mejora constantes.' },
+            { id: 7, icon: 'refresh-cw', title: 'Actualizar', desc: 'Revisión constante para mantener relevancia e incorporar prácticas innovadoras.' }
         ];
 
         const mentoringSteps = [
@@ -213,15 +267,31 @@
         ];
 
         function switchTab(tabId) {
+            // Update Navigation UI
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 const id = btn.getAttribute('data-id');
                 const isActive = id === tabId;
-                const activeStyle = tabId === 'mentoring' ? 'sidebar-active-mentoring' : 'sidebar-active';
+                let activeStyle = 'sidebar-active';
+                if (tabId === 'mentoring') activeStyle = 'sidebar-active-mentoring';
+                if (tabId === 'concepto') activeStyle = 'sidebar-active-concept';
+                
                 btn.className = `nav-btn flex items-center space-x-4 px-6 py-5 rounded-[2rem] font-black text-sm transition-all ${isActive ? activeStyle : 'text-slate-500 hover:bg-white/50'}`;
             });
+
+            // Handle visibility of Content sections
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.toggle('hidden', content.id !== `section-${tabId}`);
             });
+
+            // Handle visibility of Metrics bar (Hidden in concept, visible in others)
+            const metricsBar = document.getElementById('metrics-bar');
+            if (tabId === 'concepto') {
+                metricsBar.classList.add('hidden');
+            } else {
+                metricsBar.classList.remove('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleCard(card) {
@@ -230,25 +300,42 @@
             const chevron = card.querySelector('.chevron');
             const isClosing = !details.classList.contains('hidden');
 
-            // Reset other cards
             document.querySelectorAll('.expandable-card').forEach(c => {
                 if (c !== card) {
                     c.classList.remove('card-expanded');
                     c.querySelector('.details').classList.add('hidden');
                     c.querySelector('.summary').classList.remove('hidden');
-                    c.querySelector('.chevron').classList.remove('rotate-180', 'text-blue-600');
+                    if(c.querySelector('.chevron')) c.querySelector('.chevron').classList.remove('rotate-180', 'text-blue-600');
                 }
             });
 
-            // Toggle Current
             card.classList.toggle('card-expanded', !isClosing);
             details.classList.toggle('hidden', isClosing);
             summary.classList.toggle('hidden', !isClosing);
-            chevron.classList.toggle('rotate-180', !isClosing);
-            chevron.classList.toggle('text-blue-600', !isClosing);
+            if(chevron) {
+                chevron.classList.toggle('rotate-180', !isClosing);
+                chevron.classList.toggle('text-blue-600', !isClosing);
+            }
         }
 
         function render() {
+            // Stages
+            document.getElementById('stages-grid').innerHTML = gcStages.map(s => `
+                <div class="bg-white p-6 rounded-[2.5rem] border border-slate-100 flex items-start gap-4 transition-all hover:shadow-xl group hover:border-blue-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center shrink-0 border border-slate-50 group-hover:scale-110 transition-transform">
+                        <i data-lucide="${s.icon}" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-slate-800 flex items-center gap-2">
+                            <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-black tracking-widest">${s.id}</span>
+                            ${s.title}
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed font-medium">${s.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Phases
             document.getElementById('phases-grid').innerHTML = phases.map(p => `
                 <div class="expandable-card bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-all cursor-pointer group relative overflow-hidden" onclick="toggleCard(this)">
                     <div class="flex items-center justify-between relative z-10">
@@ -261,7 +348,7 @@
                         </div>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-300 transition-all chevron"></i>
                     </div>
-                    <div class="details hidden mt-5 pt-5 border-t border-slate-50 animate-slide">
+                    <div class="details hidden mt-5 pt-5 border-t border-slate-50 animate-fade">
                         <div class="bg-blue-50/50 p-4 rounded-2xl border border-blue-100/50">
                             <p class="text-sm text-slate-600 leading-relaxed font-medium italic">"${p.long}"</p>
                         </div>
@@ -269,6 +356,7 @@
                 </div>
             `).join('');
 
+            // Strategies
             document.getElementById('strategies-grid').innerHTML = strategies.map(s => `
                 <div class="expandable-card bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-all cursor-pointer group relative overflow-hidden" onclick="toggleCard(this)">
                     <div class="flex items-center justify-between relative z-10">
@@ -283,7 +371,7 @@
                         </div>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-300 transition-all chevron"></i>
                     </div>
-                    <div class="details hidden mt-5 pt-5 border-t border-slate-50 animate-slide">
+                    <div class="details hidden mt-5 pt-5 border-t border-slate-50 animate-fade">
                         <div class="bg-blue-50/50 p-4 rounded-2xl border border-blue-100/50">
                             <p class="text-sm text-slate-600 leading-relaxed font-medium italic">"${s.long}"</p>
                         </div>
@@ -291,13 +379,14 @@
                 </div>
             `).join('');
 
+            // Mentoring
             document.getElementById('mentoring-grid').innerHTML = mentoringSteps.map(m => `
                 <div class="flex flex-col items-center text-center group">
                     <div class="w-20 h-20 rounded-[2.5rem] ${m.color.startsWith('bg') ? m.color + ' text-white' : 'bg-slate-50 ' + m.color} flex items-center justify-center mb-6 shadow-xl transition-transform group-hover:scale-110 rotate-3 group-hover:rotate-0">
                         <i data-lucide="${m.icon}" class="w-10 h-10"></i>
                     </div>
                     <h4 class="font-black text-slate-800 text-lg mb-1">${m.title}</h4>
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Pilotaje 2026</p>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 font-black">Pilotaje 2026</p>
                 </div>
             `).join('');
 
@@ -308,4 +397,3 @@
     </script>
 </body>
 </html>
-
